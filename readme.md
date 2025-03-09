@@ -1,54 +1,30 @@
-# Шаблон для выполнения тестового задания
+# Настройка окружения
+## Аутентификация Google Sheets
+Поместите файл credentials.json в корневую папку проекта:
 
-## Описание
-Шаблон подготовлен для того, чтобы попробовать сократить трудоемкость выполнения тестового задания.
+{
+  "type": "service_account",
+  "project_id": "airy-strength-443815-a5", 
+  "private_key_id": "****************************************",
+  "private_key": "******************",
+  "client_email": "google-sheets-test@airy-strength-443815-a5.iam.gserviceaccount.com",
+  "client_id": "105970790153724059945",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/google-sheets-test%40airy-strength-443815-a5.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
 
-В шаблоне настоены контейнеры для `postgres` и приложения на `nodejs`.  
-Для взаимодействия с БД используется `knex.js`.  
-В контейнере `app` используется `build` для приложения на `ts`, но можно использовать и `js`.
+## Переменные окружения
+Добавьте рабочий токен Wildberries в файл .env
 
-Шаблон не является обязательным!\
-Можно использовать как есть или изменять на свой вкус.
+## ID Google Sheets
+Укажите либо в файле /src/posgres/seeds/spreadsheets.js
+И раскомментируйте строку в app.ts:
+//await seed.run();
 
-Все настройки можно найти в файлах:
-- compose.yaml
-- dockerfile
-- package.json
-- tsconfig.json
-- src/config/env/env.ts
-- src/config/knex/knexfile.ts
+Или вставьте напрямую в таблицу spreadsheets в базе данных
 
-## Команды:
-
-Запуск базы данных:
-```bash
-docker compose up -d --build postgres
-```
-
-Для выполнения миграций и сидов не из контейнера:
-```bash
-npm run knex:dev migrate latest
-```
-
-```bash
-npm run knex:dev seed run
-```
-Также можно использовать и остальные команды (`migrate make <name>`,`migrate up`, `migrate down` и т.д.)
-
-Для запуска приложения в режиме разработки:
-```bash
-npm run dev
-```
-
-Запуск проверки самого приложения:
-```bash
-docker compose up -d --build app
-```
-
-Для финальной проверки рекомендую:
-```bash
-docker compose down --rmi local --volumes
-docker compose up --build
-```
-
-PS: С наилучшими пожеланиями!
+## Запуск
+docker compose up

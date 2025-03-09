@@ -11,7 +11,9 @@ export class CommissionsRepository implements ICommissionsRepository {
   async getAll(): Promise<IDbСommission[]> {
     return this.knex<IDbСommission>('commissions').select('*');
   }
-
+  async getByTimestamp(timestamp: number): Promise<IDbСommission[]> {
+    return this.knex<IDbСommission>('commissions').where('timestamp', timestamp).select('*');
+  }
   async create(commision: IDbСommission): Promise<void> {
     await this.knex<IDbСommission>('commissions').insert(commision);
   }
@@ -23,7 +25,6 @@ export class CommissionsRepository implements ICommissionsRepository {
         .insert(batch)
         .onConflict(['subject_id', 'timestamp'])
         .merge();
-
     }
   }
 

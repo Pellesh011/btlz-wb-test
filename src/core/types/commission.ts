@@ -24,6 +24,7 @@ export interface IWbApiСommission {
 
 export interface ICommissionsRepository {
   getAll(): Promise<IDbСommission[]>;
+  getByTimestamp(timestamp: number): Promise<IDbСommission[]>;
   create(report: IDbСommission): Promise<void>;
   createOrUpdate(report: IDbСommission): Promise<void>;
   butchCreateOrUpdate(reports: IDbСommission[], batchSize: number): Promise<void>;
